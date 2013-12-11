@@ -23,7 +23,8 @@
               scope.offices = data;
               scope.formData.officeId = scope.offices[0].id;  
             });
-
+            scope.test = [{name:"A",id:"0"},{name:"B",id:"1"}]
+            $('.combobox').combobox()
             //events for credits
             scope.addCrAccount = function () {
               if(scope.formData.crAmountTemplate != undefined){
@@ -40,11 +41,11 @@
                 scope.errorcreditevent = true;
                 scope.labelcrediterror = 'requiredfield';
               }
-            }
+            };
 
             scope.removeCrAccount = function(index) {
               scope.formData.crAccounts.splice(index,1);
-            }
+            };
 
             //events for debits
             scope.addDebitAccount = function () {
@@ -62,11 +63,11 @@
                 scope.errordebitevent = true;
                 scope.labeldebiterror = 'requiredfield';
               }
-            }
+            };
 
             scope.removeDebitAccount = function(index) {
               scope.formData.dbAccounts.splice(index,1);
-            }
+            };
 
             scope.submit = function() {
                   var jeTransaction = new Object();
@@ -100,7 +101,7 @@
                   resourceFactory.journalEntriesResource.save(jeTransaction,function(data){
                     location.path('/viewtransactions/'+data.transactionId);
                   });
-            }
+            };
     }
   });
   mifosX.ng.application.controller('JournalEntryController', ['$scope', 'ResourceFactory', '$location','dateFilter', mifosX.controllers.JournalEntryController]).run(function($log) {

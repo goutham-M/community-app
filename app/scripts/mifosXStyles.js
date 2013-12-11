@@ -6,7 +6,10 @@ define(['underscore'], function() {
       'font-awesome.min',
       'app',
       'nv.d3',
-      'style'
+      'style',
+      'bootstrap',
+      'bootstrap-combobox',
+      'bootstrap-select'
     ],
     less: [
       'mifosX'

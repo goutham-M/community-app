@@ -26,7 +26,11 @@
             'angularFileUploadShim':'../bower_components/angularjs-file-upload/angular-file-upload-shim',
             'ngSanitize':       '../bower_components/angular-sanitize/angular-sanitize',
             'ckEditor':         '../bower_components/ckeditor/ckeditor',
-            'LocalStorageModule':'../scripts/modules/localstorage'
+            'LocalStorageModule':'../scripts/modules/localstorage',
+            'LocalStorageModule':'../scripts/modules/localstorage',
+            'bootstrap':'../scripts/modules/bootstrap',
+            'bootstrap-combobox':'../scripts/modules/bootstrap-combobox',
+            'bootstrap-select':'../scripts/modules/bootstrap-select'
         },
         shim: {
             'angular': { exports: 'angular' },
@@ -47,6 +51,9 @@
             'ngSanitize':{deps:['angular'],exports:'ngSanitize'},
             'ckEditor':{deps:['jquery']},
             'LocalStorageModule':{deps:['angular']},
+            'bootstrap':{deps:['jquery','angular']},
+            'bootstrap-combobox':{deps:['jquery','angular']},
+            'bootstrap-select':{deps:['jquery','angular']},
             'mifosX': {
                 deps: [
                     'angular',
@@ -66,7 +73,10 @@
                     'ckEditor',
                     'configurations',
                     'LocalStorageModule',
-                    'angularFileUploadShim'
+                    'angularFileUploadShim',
+                    'bootstrap',
+                    'bootstrap-combobox',
+                    'bootstrap-select'
                 ],
                 exports: 'mifosX'
             }
