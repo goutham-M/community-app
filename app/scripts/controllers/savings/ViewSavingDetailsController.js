@@ -1,6 +1,7 @@
 (function(module) {
   mifosX.controllers = _.extend(module, {
     ViewSavingDetailsController: function(scope, routeParams, resourceFactory, location, route,dateFilter) {
+      scope.viewtxn = false;
       scope.isDebit = function (savingsTransactionType) {
         return savingsTransactionType.withdrawal == true || savingsTransactionType.feeDeduction == true;
       };
@@ -207,6 +208,30 @@
       scope.modifyTransaction = function(accountId, transactionId) {
         location.path('/savingaccount/' + accountId + '/modifytransaction?transactionId=' + transactionId);
       };
+
+      scope.viewPrintTxn = function () {
+          scope.viewtxn = true;
+      };
+      
+      scope.PrintElem = function (elem, elem1) {
+          Popup($(elem).html());
+          scope.viewtxn = false;
+      };
+
+      function Popup(data) {
+          var mywindow = window.open('', 'my div', 'height=400,width=800');
+          mywindow.document.write('<html><head><title>my div</title>');
+          /*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
+          mywindow.document.write('</head><body >');
+          mywindow.document.write(data);
+          mywindow.document.write('</body></html>');
+
+          mywindow.print();
+          mywindow.close();
+
+          return true;
+      }
+
     }
   });
   mifosX.ng.application.controller('ViewSavingDetailsController', ['$scope', '$routeParams', 'ResourceFactory', '$location', '$route','dateFilter', mifosX.controllers.ViewSavingDetailsController]).run(function($log) {

@@ -156,6 +156,7 @@
     "label.button.pay": "Pay",
     "label.button.clientscreenreports":"Client screen reports",
     "label.button.summary": "Summary",
+    "label.button.viewprintsavingstxn": "View Print Transations",
 
     "#Misc Labels": "..",
     "label.uniquelyidentifiedwithid": "Uniquely identified with Id",
@@ -1294,6 +1295,9 @@
     "label.heading.calculationtype": "Calculation Type",
     "label.heading.assets": "Assets",
     "label.heading.activatedon":"Activated On",
+    "label.heading.clientname":"Client Name",
+    "label.heading.deposit":"Deposit",
+    "label.heading.withdraw":"Withdraw",
 
     "#Anchors": "..",
     "label.anchor.addsavingcharges": "Add Saving Charges",
