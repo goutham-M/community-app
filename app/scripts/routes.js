@@ -516,6 +516,9 @@
             })
             .when('/advsearch', {
                 templateUrl: 'views/search/advsearch.html'
+            })
+            .when('/fundmapping', {
+                templateUrl: 'views/search/fundmapping.html'
             });
         $locationProvider.html5Mode(false);
     };

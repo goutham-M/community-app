@@ -106,9 +106,15 @@
                 if (scope.loanaccountinfo.expectedFirstRepaymentOnDate) {
                     scope.formData.repaymentsStartingFromDate = new Date(scope.loanaccountinfo.expectedFirstRepaymentOnDate);
                 }
+
+                if (scope.loanaccountinfo.fundingDate) {
+                    scope.formData.fundingDate = new Date(scope.loanaccountinfo.fundingDate);
+                }
+
                 scope.multiDisburseLoan = scope.loanaccountinfo.multiDisburseLoan
                 scope.formData.productId = scope.loanaccountinfo.loanProductId;
                 scope.formData.fundId = scope.loanaccountinfo.fundId;
+                scope.formData.fundTypeId = scope.loanaccountinfo.fundTypeId;
                 scope.formData.principal = scope.loanaccountinfo.principal;
                 scope.formData.loanTermFrequency = scope.loanaccountinfo.termFrequency;
                 scope.formData.loanTermFrequencyType = scope.loanaccountinfo.termPeriodFrequencyType.id;
@@ -277,7 +283,7 @@
                 this.formData.submittedOnDate = dateFilter(this.formData.submittedOnDate, scope.df);
                 this.formData.interestChargedFromDate = dateFilter(this.formData.interestChargedFromDate, scope.df);
                 this.formData.repaymentsStartingFromDate = dateFilter(this.formData.repaymentsStartingFromDate, scope.df);
-
+                this.formData.fundingDate = dateFilter(this.formData.fundingDate, scope.df);
                 resourceFactory.loanResource.put({loanId: routeParams.id}, this.formData, function (data) {
                     location.path('/viewloanaccount/' + data.loanId);
                 });

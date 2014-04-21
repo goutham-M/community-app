@@ -1,0 +1,114 @@
+<div ng-controller="FundMappingController">
+	<api-validate></api-validate>
+	<div class="col-xs-4 paddedtop10">
+		<table>
+			<tr>
+				<td>&nbsp;&nbsp;&nbsp;{{'label.input.fundtype' | translate}}</td>
+				<td><select ng-model="formFundData.fundTypeId" class="form-control" ng-options="codeValue.id as codeValue.name for codeValue in template.fundTypeOptions" value="{{codeValue.id}}" ng-change="getAllFundsByFundType(formFundData.fundTypeId)">
+					<option value="">{{"label.selectone" | translate}}</option>
+	            </select></td>
+			</tr>
+			<tr>
+				<td>&nbsp;&nbsp;{{'label.input.fundsource' | translate}}<span class="required">*</span>:&nbsp;</td>
+				<td><select ng-model="formFundData.fundId" class="form-control" ng-options="fund.id as fund.name for fund in template.fundOptions" value="{{fund.id}}">
+					<option value="">{{"fundIdSelectAll" | translate}}</option>
+	            </select></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td class=""><button class="btn btn-primary mapstyle" ng-click="mapSubmit()">{{'label.button.map' | translate}}</button></td>
+			</tr>
+		</table>
+	</div>
+	<!-- <div class="col-xs-1 paddedtop10">
+		<table>
+			<tr>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>
+					<button class="btn btn-primary" ng-click="mapSubmit()">{{'label.button.map' | translate}}</button>
+				</td>
+				<td></td>
+			</tr>
+		</table>
+	</div>	 -->
+	<div class="col-xs-7 paddedtop">
+		<table class="table">
+			<caption><b>{{'label.heading.summary' | translate}}<b></caption>
+			<thead>
+				<tr class="graybg">
+					<th>{{'label.heading.office' | translate}}</th>
+					<th>{{'label.heading.product' | translate}}</th>
+					<th>{{'label.heading.count' | translate}}</th>
+					<th>{{'label.heading.loanoutstanding' | translate}}</th>
+					<th>{{'label.heading.percentage' | translate}}</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="pointer-main" ng-repeat="result in searchResults">
+					<td class="pointer">{{result.officeName}}</td>
+					<td class="pointer">{{result.loanProductName}}</td>
+					<td class="pointer">{{result.count}}</td>
+					<td class="pointer">{{result.loanOutStanding}}</td>
+					<td class="pointer">{{result.percentage}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="col-xs-10 paddedbottom20">
+		<div>
+			<label class="control-label paddingleft28px">{{'label.heading.fundstartdate' | translate}}</label>
+		</div>
+		<div class="marginleft50px">
+			<span>{{'label.input.disburseddate' | translate}}</span>
+			<span><input id="disburseddate" type="checkbox" ng-model="formData.disburseddatecheckbox"/></span>
+		</div>
+		<div ng-hide="formData.disburseddatecheckbox" class="marginleft50px">
+			<span>{{'label.input.fundingdate' | translate}}</span>
+			<span><input type="text" id="fundingDate" name="fundingdate" datepicker-pop="dd MMMM yyyy"
+                   ng-model="date.fundingdate" is-open="opened" min="'2000-01-01'" max="restrictDate"/></span>
+		</div>
+	</div>
+	<div class="col-xs-10">
+		<span><b>{{'label.heading.selectloanstobemapped' | translate}}<b></span>
+		<span class="btn btn-warning">&nbsp;&nbsp;<a href="#/advsearch">{{'label.anchor.modifysearch' | translate}}</a></span>
+	</div>
+	<div class="row">
+		<table class="table table-condensed" ng-show="listingDetails">
+			<thead>
+				<tr class="graybg">
+					<th><input type="checkbox" ng-model="activeall" ng-true-value="true" ng-false-value="false"
+                     ng-change="selectAll(activeall, listingDetails.pageItems)"></th>
+					<th>{{'label.heading.clientname' | translate}}</th>
+					<th>{{'label.heading.loanproduct' | translate}}</th>
+					<th>#{{'label.heading.loanaccount' | translate}}</th>
+					<th>{{'label.heading.fundname' | translate}}</th>
+					<th>{{'label.heading.disburseamount' | translate}}</th>
+					<th>{{'label.heading.disbursedondate' | translate}}</th>
+					<th>{{'label.heading.loanoutstanding' | translate}}</th>
+					<th>{{'label.heading.percentage' | translate}}</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="pointer-main" ng-repeat="result in listingDetails.pageItems">
+					<td><input type="checkbox" ng-model="active" ng-true-value="true" ng-false-value="false"
+                     ng-change="mapLoanAccountsSelected(result.loanId, active)"></td>
+					<td class="pointer">{{result.clientName}}</td>
+					<td class="pointer">{{result.loanProductName}}</td>
+					<td class="pointer">{{result.accountNo}}</td>
+					<td class="pointer">{{result.fundName}}</td>
+					<td class="pointer">{{result.disburseAmount}}</td>
+					<td class="pointer">{{result.disbursementDate | DateFormat}}</td>
+					<td class="pointer">{{result.loanOutStanding}}</td>
+					<td class="pointer">{{result.percentage}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

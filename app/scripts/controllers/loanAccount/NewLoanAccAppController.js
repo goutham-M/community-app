@@ -199,6 +199,7 @@
                 var reqThirdDate = dateFilter(scope.date.third, scope.df);
                 var reqFourthDate = dateFilter(scope.date.fourth, scope.df);
                 var reqFifthDate = dateFilter(scope.date.fifth, scope.df);
+                var fundingDate = dateFilter(scope.date.fundingdate, scope.df);
 
                 if (scope.charges.length > 0) {
                     scope.formData.charges = [];
@@ -232,6 +233,7 @@
                 this.formData.loanType = scope.inparams.templateType;
                 this.formData.expectedDisbursementDate = reqSecondDate;
                 this.formData.submittedOnDate = reqFirstDate;
+                this.formData.fundingDate = fundingDate;
 
                 resourceFactory.loanResource.save(this.formData, function (data) {
                     location.path('/viewloanaccount/' + data.loanId);

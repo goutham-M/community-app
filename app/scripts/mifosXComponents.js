@@ -18,6 +18,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'main/LoginFormController',
             'main/TaskController',
             'main/SearchController',
+            'main/FundMappingController',
             'main/NavigationController',
             'collection/ProductiveCollectionSheetController',
             'collection/CollectionSheetController',

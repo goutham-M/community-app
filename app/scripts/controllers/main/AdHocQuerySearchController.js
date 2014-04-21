@@ -1,8 +1,9 @@
 (function (module) {
     mifosX.controllers = _.extend(module, {
-        AdHocQuerySearchController: function (scope, routeParams, dateFilter, resourceFactory) {
+        AdHocQuerySearchController: function (scope, routeParams, dateFilter, resourceFactory, location, $rootScope) {
             scope.formData = {};
             scope.showResults = false;
+            scope.adHocQuery = {};
 
             resourceFactory.globalSearchTemplateResource.get(function (data) {
                 scope.searchTemplate = data;
@@ -43,96 +44,95 @@
                 }
             };
 
-            scope.submit = function () {
-                var adHocQuery = { "locale": scope.optlang.code, "dateFormat": "yyyy-MM-dd"};
-                if (scope.formData.loans) {
-                    adHocQuery.entities = adHocQuery.entities || [];
-                    adHocQuery.entities.push(scope.formData.loans);
-                }
-                ;
-                if (scope.formData.allloans) {
-                    adHocQuery.loanStatus = adHocQuery.loanStatus || [];
-                    adHocQuery.loanStatus.push(scope.formData.allloans);
-                }
-                ;
-                if (scope.formData.activeloans) {
-                    adHocQuery.loanStatus = adHocQuery.loanStatus || [];
-                    adHocQuery.loanStatus.push(scope.formData.activeloans);
-                }
-                ;
-                if (scope.formData.overpaidloans) {
-                    adHocQuery.loanStatus = adHocQuery.loanStatus || [];
-                    adHocQuery.loanStatus.push(scope.formData.overpaidloans);
-                }
-                ;
-                if (scope.formData.arrearloans) {
-                    adHocQuery.loanStatus = adHocQuery.loanStatus || [];
-                    adHocQuery.loanStatus.push(scope.formData.arrearloans);
-                }
-                ;
-                if (scope.formData.closedloans) {
-                    adHocQuery.loanStatus = adHocQuery.loanStatus || [];
-                    adHocQuery.loanStatus.push(scope.formData.closedloans);
-                }
-                ;
-                if (scope.formData.writeoffloans) {
-                    adHocQuery.loanStatus = adHocQuery.loanStatus || [];
-                    adHocQuery.loanStatus.push(scope.formData.writeoffloans);
-                }
-                ;
-                if (scope.formData.loanProducts) {
-                    adHocQuery.loanProducts = scope.formData.loanProducts;
-                }
-                ;
-                if (scope.formData.offices) {
-                    adHocQuery.offices = scope.formData.offices;
-                }
-                ;
-                if (scope.formData.loandatetype) {
-                    adHocQuery.loanDateOption = scope.formData.loandatetype;
-                    adHocQuery.loanFromDate = dateFilter(scope.formData.loanfromdate, adHocQuery.dateFormat);
-                    adHocQuery.loanToDate = dateFilter(scope.formData.loantodate, adHocQuery.dateFormat);
-                }
-                ;
-                if (scope.formData.includeOutStandingAmountPercentage) {
-                    adHocQuery.includeOutStandingAmountPercentage = scope.formData.includeOutStandingAmountPercentage;
-                    if (scope.formData.outStandingAmountPercentageCondition) {
-                        adHocQuery.outStandingAmountPercentageCondition = scope.formData.outStandingAmountPercentageCondition;
-                        if (adHocQuery.outStandingAmountPercentageCondition == 'between') {
-                            adHocQuery.minOutStandingAmountPercentage = scope.formData.minOutStandingAmountPercentage;
-                            adHocQuery.maxOutStandingAmountPercentage = scope.formData.maxOutStandingAmountPercentage;
-                        } else {
-                            adHocQuery.outStandingAmountPercentage = scope.formData.outStandingAmountPercentage;
-                        }
-                        ;
-                    }
-                    ;
-                }
-                ;
+            scope.listingType = function () {
+               buildParamsData();
+               $rootScope.adHocQuery = scope.adHocQuery;
+               location.path('/fundmapping');
+            };
 
-                if (scope.formData.includeOutstandingAmount) {
-                    adHocQuery.includeOutstandingAmount = scope.formData.includeOutstandingAmount;
-                    if (scope.formData.outstandingAmountCondition) {
-                        adHocQuery.outstandingAmountCondition = scope.formData.outstandingAmountCondition;
-                        if (adHocQuery.outstandingAmountCondition == 'between') {
-                            adHocQuery.minOutstandingAmount = scope.formData.minOutstandingAmount;
-                            adHocQuery.maxOutstandingAmount = scope.formData.maxOutstandingAmount;
-                        } else {
-                            adHocQuery.outstandingAmount = scope.formData.outstandingAmount;
-                        }
-                        ;
-                    }
-                    ;
+            function buildParamsData() {
+                scope.adHocQuery.locale = scope.optlang.code;
+                scope.adHocQuery.dateFormat = "yyyy-MM-dd";
+              
+                if (scope.formData.allloans) {
+                  scope.adHocQuery.loanStatus = scope.adHocQuery.loanStatus || [];
+                  scope.adHocQuery.loanStatus.push(scope.formData.allloans);
+                };
+                if (scope.formData.activeloans) {
+                  scope.adHocQuery.loanStatus = scope.adHocQuery.loanStatus || [];
+                  scope.adHocQuery.loanStatus.push(scope.formData.activeloans);
+                };
+                if (scope.formData.overpaidloans) {
+                  scope.adHocQuery.loanStatus = scope.adHocQuery.loanStatus || [];
+                  scope.adHocQuery.loanStatus.push(scope.formData.overpaidloans);
+                };
+                if (scope.formData.arrearloans) {
+                  scope.adHocQuery.loanStatus = scope.adHocQuery.loanStatus || [];
+                  scope.adHocQuery.loanStatus.push(scope.formData.arrearloans);
+                };
+                if (scope.formData.closedloans) {
+                  scope.adHocQuery.loanStatus = scope.adHocQuery.loanStatus || [];
+                  scope.adHocQuery.loanStatus.push(scope.formData.closedloans);
+                };
+                if (scope.formData.writeoffloans) {
+                  scope.adHocQuery.loanStatus = scope.adHocQuery.loanStatus || [];
+                  scope.adHocQuery.loanStatus.push(scope.formData.writeoffloans);
+                };
+                if (scope.formData.loanProducts) {
+                  scope.adHocQuery.loanProducts = scope.formData.loanProducts;
+                };
+                if (scope.formData.offices) {
+                  scope.adHocQuery.offices = scope.formData.offices;
+                };
+                if (scope.formData.loandatetype) {
+                  scope.adHocQuery.loanDateOption = scope.formData.loandatetype;
+                  scope.adHocQuery.loanFromDate = dateFilter(scope.formData.loanfromdate,scope.adHocQuery.dateFormat);
+                  scope.adHocQuery.loanToDate = dateFilter(scope.formData.loantodate,scope.adHocQuery.dateFormat);
+                };
+                if (scope.formData.includeOutStandingAmountPercentage) {
+                  if (scope.formData.outStandingAmountPercentageCondition) {
+                    scope.adHocQuery.outStandingAmountPercentageCondition = scope.formData.outStandingAmountPercentageCondition;
+                    if (scope.adHocQuery.outStandingAmountPercentageCondition == 'between') {
+                      scope.adHocQuery.minOutStandingAmountPercentage = scope.formData.minOutStandingAmountPercentage;
+                      scope.adHocQuery.maxOutStandingAmountPercentage = scope.formData.maxOutStandingAmountPercentage;
+                    } else{
+                      scope.adHocQuery.outStandingAmountPercentage = scope.formData.outStandingAmountPercentage;
+                    };
+                  };
+                } else {
+                    scope.adHocQuery.includeOutStandingAmountPercentage = scope.formData.includeOutStandingAmountPercentage;
+                    delete scope.adHocQuery.outStandingAmountPercentageCondition;
                 }
-                ;
-                resourceFactory.globalAdHocSearchResource.search(adHocQuery, function (data) {
+
+                scope.adHocQuery.includeOutstandingAmount = scope.formData.includeOutstandingAmount;
+                if (scope.formData.includeOutstandingAmount) {
+                  if (scope.formData.outstandingAmountCondition) {
+                    scope.adHocQuery.outstandingAmountCondition = scope.formData.outstandingAmountCondition;
+                    if (scope.adHocQuery.outstandingAmountCondition == 'between') {
+                      scope.adHocQuery.minOutstandingAmount = scope.formData.minOutstandingAmount;
+                      scope.adHocQuery.maxOutstandingAmount = scope.formData.maxOutstandingAmount;
+                    } else{
+                      scope.adHocQuery.outstandingAmount = scope.formData.outstandingAmount;
+                    };
+                  };
+                } else {
+                    scope.adHocQuery.includeOutstandingAmount = scope.formData.includeOutstandingAmount;
+                    delete scope.adHocQuery.outstandingAmountCondition;
+                }
+            }
+
+            scope.submit = function () {
+                buildParamsData();
+                resourceFactory.globalAdHocSearchResource.search({queryType : 'summary'}, scope.adHocQuery, function (data) {
                     scope.searchResults = data;
                     scope.showResults = true;
                 });
             };
         }
     });
-    mifosX.ng.application.controller('AdHocQuerySearchController', ['$scope', '$routeParams', 'dateFilter', 'ResourceFactory', mifosX.controllers.AdHocQuerySearchController]).run(function ($log) {
-        $log.info("AdHocQuerySearchController initialized");
-    });
+    
+
+  mifosX.ng.application.controller('AdHocQuerySearchController', ['$scope','$routeParams', 'dateFilter', 'ResourceFactory', '$location', '$rootScope', mifosX.controllers.AdHocQuerySearchController]).run(function($log) {
+    $log.info("AdHocQuerySearchController initialized");
+  });
 }(mifosX.controllers || {}));

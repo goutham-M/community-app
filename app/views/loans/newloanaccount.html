@@ -31,11 +31,11 @@
         </td>
     </tr>
     <tr ng-show="formData.productId">
-        <td><label>{{ 'label.input.loanpurpose' | translate }}:&nbsp;</label></td>
+        <td><label>{{ 'label.input.fundtype' | translate }}:&nbsp;</label></td>
         <td>
-            <select id="loanPurposeId" ng-model="formData.loanPurposeId"
-                    ng-options="loanPurpose.id as loanPurpose.name for loanPurpose in loanaccountinfo.loanPurposeOptions | orderBy:'name':reverse" class="form-control" value="{{loanPurpose.id}}">
-                <option value="">{{'label.selectpurpose' | translate}}</option>
+            <select id="fundTypeId" ng-model="formData.fundTypeId"
+                    ng-options="fundType.id as fundType.name for fundType in loanaccountinfo.fundTypeOptions | orderBy:'name':reverse" class="form-control" value="{{fundType.id}}">
+                <option value="">{{'label.selectone' | translate}}</option>
             </select>
         </td>
         <td><label>{{ 'label.input.fund' | translate }}:&nbsp;</label></td>
@@ -45,6 +45,21 @@
                 <option value="">{{'label.selectfund' | translate}}</option>
             </select>
         </td>
+    </tr>
+    <tr ng-show="formData.productId">
+        <td><label>{{ 'label.input.fundingdate' | translate }}</label></td>
+        <td>
+            <input type="text" id="fundingDate" name="fundingdate" datepicker-pop="dd MMMM yyyy"
+                   ng-model="date.fundingdate" is-open="opened" min="'2000-01-01'" max="restrictDate"/>
+        </td>
+        <td><label>{{ 'label.input.loanpurpose' | translate }}:&nbsp;</label></td>
+        <td>
+            <select id="loanPurposeId" ng-model="formData.loanPurposeId"
+                    ng-options="loanPurpose.id as loanPurpose.name for loanPurpose in loanaccountinfo.loanPurposeOptions | orderBy:'name':reverse" class="form-control" value="{{loanPurpose.id}}">
+                <option value="">{{'label.selectpurpose' | translate}}</option>
+            </select>
+        </td>
+        
     </tr>
     <tr ng-show="formData.productId">
         <td><label>{{ 'label.input.submittedon' | translate }}<span class="required">*</span>:&nbsp;</label></td>
